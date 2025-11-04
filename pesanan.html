@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pemesanan - Ravs Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;} .card{background:rgba(255,255,255,0.95);}</style>
+</head>
+<body class="bg-gradient-to-br from-sky-600 to-cyan-400 min-h-screen text-gray-900">
+<div class="max-w-6xl mx-auto p-6">
+
+<header class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-4xl font-bold text-white">Ravs Store Hosting</h1>
+    <p class="text-sm text-white/90">VPS • RDP • Jasa Jaringan • Dev SA:MP</p>
+  </div>
+  <div class="flex gap-2 items-center">
+    <!-- three control boxes -->
+    <div class="flex gap-2">
+      <div class="box-control cursor-pointer p-3 bg-white rounded" data-action="toggle-sidebar" title="Dashboard">☰</div>
+      <div class="box-control cursor-pointer p-3 bg-white rounded" data-action="open-login" title="Login Email">🔒</div>
+      <div class="box-control cursor-pointer p-3 bg-white rounded" data-action="open-settings" title="Settings">⚙️</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<h2 class="text-2xl font-bold text-white mb-4">Form Pemesanan</h2>
+<div class="card p-6 rounded-xl shadow">
+  <form id="orderForm" class="space-y-3">
+    <div>
+      <label class="text-sm">Paket</label>
+      <input id="pkg" class="w-full p-2 border rounded bg-white" readonly />
+    </div>
+    <div class="grid grid-cols-3 gap-2">
+      <div>
+        <label class="text-sm">vCPU</label>
+        <select id="cpu" class="w-full p-2 border rounded bg-white">
+          <option value="1">1 vCPU</option>
+          <option value="2">2 vCPU</option>
+          <option value="4">4 vCPU</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-sm">RAM (GB)</label>
+        <select id="ram" class="w-full p-2 border rounded bg-white">
+          <option value="1">1 GB</option>
+          <option value="2">2 GB</option>
+          <option value="4">4 GB</option>
+          <option value="8">8 GB</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-sm">Storage (GB)</label>
+        <select id="storage" class="w-full p-2 border rounded bg-white">
+          <option value="20">20 GB</option>
+          <option value="50">50 GB</option>
+          <option value="100">100 GB</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <div class="flex-1">
+        <label class="text-sm">Durasi (bulan)</label>
+        <input id="duration" type="number" min="1" value="1" class="w-full p-2 border rounded bg-white" />
+      </div>
+      <div class="w-48">
+        <label class="text-sm">Harga Est.</label>
+        <div id="pricePreview" class="w-full p-2 border rounded bg-white font-bold">Rp 0</div>
+      </div>
+    </div>
+
+    <div>
+      <label class="text-sm">Nama</label>
+      <input id="name" class="w-full p-2 border rounded bg-white" required />
+    </div>
+    <div>
+      <label class="text-sm">Email</label>
+      <input id="email" type="email" class="w-full p-2 border rounded bg-white" required />
+    </div>
+    <div>
+      <label class="text-sm">WhatsApp</label>
+      <input id="wa" class="w-full p-2 border rounded bg-white" />
+    </div>
+    <div>
+      <label class="text-sm">Catatan</label>
+      <textarea id="note" class="w-full p-2 border rounded bg-white"></textarea>
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <button type="submit" class="px-4 py-2 rounded bg-white text-sky-600">Kirim Pesanan</button>
+      <a class="px-4 py-2 rounded border bg-white text-gray-700" href="index.html">Kembali</a>
+    </div>
+  </form>
+</div>
+</main>
+
+<footer class="mt-10 text-sm text-white/90">© Ravs Store Hosting</footer>
+
+</div>
+
+<!-- shared sidebar/login/settings -->
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white/95 p-6 shadow-lg transform -translate-x-full transition-transform z-40">
+  <div class="mb-4">
+    <h3 class="font-bold text-lg">Dashboard</h3>
+  </div>
+  <nav class="space-y-2">
+    <a href="index.html" class="block p-2 rounded hover:bg-gray-100">Home</a>
+    <a href="pesanan.html?paket=Hosting" class="block p-2 rounded hover:bg-gray-100">Hosting</a>
+    <a href="pesanan.html?paket=VPS" class="block p-2 rounded hover:bg-gray-100">VPS / RDP</a>
+    <a href="pesanan.html?paket=Dev%20SA:MP" class="block p-2 rounded hover:bg-gray-100">Jasa Dev</a>
+    <a href="pesanan.html?paket=Jasa%20Jaringan" class="block p-2 rounded hover:bg-gray-100">Jasa Jaringan</a>
+    <a href="chatroom.html" class="block p-2 rounded hover:bg-gray-100">Chat Room</a>
+    <a href="admin.html" class="block p-2 rounded hover:bg-gray-100">Pesanan / Admin</a>
+  </nav>
+  <div class="mt-6">
+    <button id="closeSidebar" class="px-3 py-2 rounded border">Tutup</button>
+  </div>
+</aside>
+
+<div id="loginModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white p-6 rounded-xl w-full max-w-md">
+    <h3 class="font-bold text-lg">Login / Identitas</h3>
+    <p class="text-sm text-gray-600">Masukkan nama & email (untuk admin masukkan email admin).</p>
+    <form id="loginForm" class="mt-3 space-y-3">
+      <input id="loginName" placeholder="Nama" class="w-full p-2 border rounded" required />
+      <input id="loginEmail" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeLogin()" class="px-3 py-2 rounded border">Batal</button>
+        <button type="submit" class="px-3 py-2 rounded bg-sky-600 text-white">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="settingsModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="bg-white p-6 rounded-xl w-full max-w-md">
+    <h3 class="font-bold text-lg">Settings / Hapus Pesanan</h3>
+    <p class="text-sm text-gray-600">Masukkan ID pesanan untuk menghapus. Hanya admin yang bisa menghapus.</p>
+    <form id="settingsForm" class="mt-3 space-y-3">
+      <input id="delOrderId" placeholder="Order ID" class="w-full p-2 border rounded" required />
+      <div class="flex justify-between items-center">
+        <div class="text-xs text-gray-500">Admin harus login terlebih dahulu.</div>
+        <div class="flex gap-2">
+          <button type="button" onclick="closeSettings()" class="px-3 py-2 rounded border">Batal</button>
+          <button type="submit" class="px-3 py-2 rounded bg-red-600 text-white">Hapus</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// same scripts as index: UI, login, settings, price calc, submit
+document.querySelectorAll('.box-control').forEach(function(el){ el.addEventListener('click', function(){
+  var act = el.dataset.action;
+  if(act==='toggle-sidebar'){ document.getElementById('sidebar').classList.toggle('-translate-x-full'); }
+  if(act==='open-login'){ document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginModal').classList.add('flex'); }
+  if(act==='open-settings'){ document.getElementById('settingsModal').classList.remove('hidden'); document.getElementById('settingsModal').classList.add('flex'); }
+})});
+
+function closeLogin(){ document.getElementById('loginModal').classList.add('hidden'); document.getElementById('loginModal').classList.remove('flex'); }
+function closeSettings(){ document.getElementById('settingsModal').classList.add('hidden'); document.getElementById('settingsModal').classList.remove('flex'); }
+
+document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); var name=document.getElementById('loginName').value.trim(); var email=document.getElementById('loginEmail').value.trim(); localStorage.setItem('ravs_me', JSON.stringify({name: name, email: email})); alert('Login disimpan: '+name+' ('+email+')'); closeLogin(); });
+
+document.getElementById('settingsForm').addEventListener('submit', function(e){ e.preventDefault(); var id=document.getElementById('delOrderId').value.trim(); var me = JSON.parse(localStorage.getItem('ravs_me')||'null'); if(!me || (me.email !== 'riorefan442@gmail.com' && me.email !== 'admin2@ravsstore.com')) return alert('Hanya admin yang bisa menghapus.'); var arr = JSON.parse(localStorage.getItem('ravs_orders')||'[]'); var idx = arr.findIndex(function(o){ return o.id === id; }); if(idx === -1) return alert('Order tidak ditemukan.'); arr.splice(idx,1); localStorage.setItem('ravs_orders', JSON.stringify(arr)); alert('Order dihapus: '+id); closeSettings(); });
+
+function qs(q){return document.querySelector(q);} 
+function uid(){return Math.random().toString(36).slice(2,9);} 
+function money(x){ return 'Rp ' + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+
+var params = new URLSearchParams(location.search);
+var pkg = params.get('paket') || 'Custom Service';
+var base = Number(params.get('base') || 0);
+qs('#pkg').value = pkg;
+
+function calcPrice(){ var cpu = Number(qs('#cpu').value); var ram = Number(qs('#ram').value); var storage = Number(qs('#storage').value); var dur = Math.max(1, Number(qs('#duration').value || 1)); var perMonth = base + (cpu * 15000) + (ram * 12000) + (storage * 200); return perMonth * dur; }
+function updatePreview(){ qs('#pricePreview').innerText = money(calcPrice()); }
+qs('#cpu').addEventListener('change', updatePreview); qs('#ram').addEventListener('change', updatePreview); qs('#storage').addEventListener('change', updatePreview); qs('#duration').addEventListener('input', updatePreview); updatePreview();
+
+qs('#orderForm').addEventListener('submit', function(e){ e.preventDefault(); var order = { id: uid(), package: qs('#pkg').value, base: base, cpu: Number(qs('#cpu').value), ram: Number(qs('#ram').value), storage: Number(qs('#storage').value), duration: Number(qs('#duration').value || 1), price: calcPrice(), name: qs('#name').value.trim(), email: qs('#email').value.trim(), wa: qs('#wa').value.trim(), note: qs('#note').value.trim(), createdAt: new Date().toISOString(), chat: [] }; var arr = JSON.parse(localStorage.getItem('ravs_orders')||'[]'); arr.push(order); localStorage.setItem('ravs_orders', JSON.stringify(arr)); localStorage.setItem('ravs_me', JSON.stringify({name:order.name, email:order.email})); alert('Pesanan tersimpan. ID: ' + order.id); location.href = 'chat.html?orderId=' + order.id; });
+</script>
+</body>
+</html>
